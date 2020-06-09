@@ -22,3 +22,10 @@ Basics of Images
     imgArr = cv2.imread('imagepath')
     cv2.imshow('image',img)
     cv2.waitKey(0)
+
+
+**2. Saving Image as Array**
+
+.. code:: python
+
+    cv2.imwrite('my_new_picture.jpg', imgArr)
