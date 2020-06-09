@@ -14,4 +14,5 @@ acquired through various courses and online readings.
    :maxdepth: 2
    :caption: Contents:
 
-
+   basics
+   install
