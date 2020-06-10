@@ -9,3 +9,5 @@ nav:
     - Images Basic: basics.md
     - Installation: install.md
 
+repo_name: mapattacker/computer-vision-python
+repo_url: https://github.com/mapattacker/computer-vision-python
