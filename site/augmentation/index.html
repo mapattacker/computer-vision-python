@@ -276,6 +276,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#imbalance-data" class="md-nav__link">
+    Imbalance Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -349,6 +363,20 @@
         <li class="md-nav__item">
   <a href="#flow-from-directory" class="md-nav__link">
     Flow from Directory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imbalance-data" class="md-nav__link">
+    Imbalance Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
   </a>
   
 </li>
@@ -443,6 +471,52 @@
                                             <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">),</span>
                                             <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 </code></pre></div>
+
+
+<h2 id="imbalance-data">Imbalance Data</h2>
+<p>We can also use Kera’s ImageDataGenerator to generate new augmented images when there is class imbalance. Imbalanced data can caused the model to predict the class with highest samples.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">ImageDataGenerator</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">load_img</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.image</span> <span class="kn">import</span> <span class="n">img_to_array</span>
+
+
+<span class="n">img</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;/Users/Desktop/post/IMG_20200308_092140.jpg&#39;</span>
+
+
+<span class="c1"># load the input image, convert it to a NumPy array, and then</span>
+<span class="c1"># reshape it to have an extra dimension</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">img_to_array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># augmentation settings</span>
+<span class="n">aug</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rotation_range</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                            <span class="n">width_shift_range</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                            <span class="n">height_shift_range</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                            <span class="n">shear_range</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                            <span class="n">zoom_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">],</span>
+                            <span class="n">horizontal_flip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                            <span class="n">vertical_flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                            <span class="n">fill_mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">,</span>
+                            <span class="n">data_format</span><span class="o">=</span><span class="s1">&#39;channels_last&#39;</span><span class="p">,</span>
+                            <span class="n">brightness_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+
+<span class="c1"># define input &amp; output</span>
+<span class="n">imageGen</span> <span class="o">=</span> <span class="n">aug</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_to_dir</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;/Users/Desktop/post/&#39;</span><span class="p">,</span>
+                    <span class="n">save_prefix</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">save_format</span><span class="o">=</span><span class="s2">&quot;jpg&quot;</span><span class="p">)</span>
+
+<span class="c1"># define number of new augmented samples</span>
+<span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">imageGen</span><span class="p">):</span>
+    <span class="n">store</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+
+<h2 id="resources">Resources</h2>
+<ul>
+<li>https://medium.com/datadriveninvestor/keras-imagedatagenerator-methods-an-easy-guide-550ecd3c0a92.</li>
+</ul>
                 
               
               

@@ -81,3 +81,50 @@ train_flow = train_aug.flow_from_directory(directory=dir,
                                             target_size=(img_size,img_size),
                                             batch_size=32)
 ```
+
+## Imbalance Data
+
+We can also use Kera’s ImageDataGenerator to generate new augmented images when there is class imbalance. Imbalanced data can caused the model to predict the class with highest samples.
+
+
+```python
+from keras.preprocessing.image import ImageDataGenerator
+from keras.preprocessing.image import load_img
+from keras.preprocessing.image import img_to_array
+
+
+img = r'/Users/Desktop/post/IMG_20200308_092140.jpg'
+
+
+# load the input image, convert it to a NumPy array, and then
+# reshape it to have an extra dimension
+image = load_img(img)
+image = img_to_array(image)
+image = np.expand_dims(image, axis=0)
+
+# augmentation settings
+aug = ImageDataGenerator(rotation_range=15,
+                            width_shift_range=0.1,
+                            height_shift_range=0.1,
+                            shear_range=0.01,
+                            zoom_range=[0.9, 1.25],
+                            horizontal_flip=True,
+                            vertical_flip=False,
+                            fill_mode='reflect',
+                            data_format='channels_last',
+                            brightness_range=[0.5, 1.5])
+
+# define input & output
+imageGen = aug.flow(image, batch_size=1, save_to_dir=r'/Users/Desktop/post/',
+                    save_prefix="image", save_format="jpg")
+
+# define number of new augmented samples
+for count, i in enumerate(imageGen):
+    store.append(i)
+    if count == 5:
+        break
+```
+
+## Resources
+
+ * https://medium.com/datadriveninvestor/keras-imagedatagenerator-methods-an-easy-guide-550ecd3c0a92.
