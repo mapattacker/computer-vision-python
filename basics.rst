@@ -64,6 +64,7 @@ output visually.
 
 Here's an example function from xiaochus's YOLO on how it is used.
 
+.. code:: python
 
     def draw(image, boxes, scores, classes, all_classes):
         """Draw the boxes on the image.
