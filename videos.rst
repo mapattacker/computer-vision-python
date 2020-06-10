@@ -44,7 +44,7 @@ From File
 
     # check for video file
     if cap.isOpened()== False: 
-        print("Error opening the video file. Please double check your file path for typos. Or move the movie file to the same location as this script/notebook")
+        print("Error opening the video file")
         
 
     # While the video is opened
