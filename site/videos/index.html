@@ -337,65 +337,65 @@
                 
                 <h1 id="videos">Videos</h1>
 <h2 id="from-webcam">From Webcam</h2>
-<pre><code class="python">    import cv2
+<pre><code class="python">import cv2
 
-    # Connects to your computer's default camera
-    cap = cv2.VideoCapture(0)
+# Connects to your computer's default camera
+cap = cv2.VideoCapture(0)
 
-    while True:
-        # Capture frame-by-frame
-        ret, frame = cap.read()
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
 
-        # Our operations on the frame come here
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        cv2.imshow('frame', gray)
+    # Our operations on the frame come here
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    cv2.imshow('frame', gray)
 
-        # quit with &quot;q&quot;
-        if cv2.waitKey(1) &amp; 0xFF == ord('q'):
-            break
+    # quit with &quot;q&quot;
+    if cv2.waitKey(1) &amp; 0xFF == ord('q'):
+        break
 
-    # When everything done, release the capture and destroy the windows
-    cap.release()
-    cv2.destroyAllWindows()
+# When everything done, release the capture and destroy the windows
+cap.release()
+cv2.destroyAllWindows()
 </code></pre>
 
 <h2 id="from-file">From File</h2>
-<pre><code class="python">    import cv2
-    import time
+<pre><code class="python">import cv2
+import time
 
-    cap = cv2.VideoCapture('../DATA/video_capture.mp4')
+cap = cv2.VideoCapture('../DATA/video_capture.mp4')
 
-    # FRAMES PER SECOND
-    fps = 25
+# FRAMES PER SECOND
+fps = 25
 
-    # check for video file
-    if cap.isOpened()== False: 
-        print(&quot;Error opening the video file&quot;)
+# check for video file
+if cap.isOpened()== False: 
+    print(&quot;Error opening the video file&quot;)
 
 
-    # While the video is opened
-    while cap.isOpened():
+# While the video is opened
+while cap.isOpened():
 
-        # Read the video file
-        ret, frame = cap.read()
+    # Read the video file
+    ret, frame = cap.read()
 
-        # If we got frames, show them.
-        if ret == True:
+    # If we got frames, show them.
+    if ret == True:
 
-            # Display the frame at same frame rate of recording
-            time.sleep(1/fps)
-            cv2.imshow('frame',frame)
+        # Display the frame at same frame rate of recording
+        time.sleep(1/fps)
+        cv2.imshow('frame',frame)
 
-            if cv2.waitKey(25) &amp; 0xFF == ord('q'):            
-                break
-
-        # automatically break this whole loop if the video is over
-        else:
+        if cv2.waitKey(25) &amp; 0xFF == ord('q'):            
             break
 
-    cap.release()
-    # Closes all the frames
-    cv2.destroyAllWindows()
+    # automatically break this whole loop if the video is over
+    else:
+        break
+
+cap.release()
+# Closes all the frames
+cv2.destroyAllWindows()
 </code></pre>
                 
               
