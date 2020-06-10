@@ -24,8 +24,8 @@ Convert to Array
     cv2.imshow('image',img)
 
     # Wait for something on keyboard to be pressed to close window.
-    # or add a specific key in the function
-    cv2.waitKey()
+    # 0 refers to 0 miliseconds of waiting
+    cv2.waitKey(0)
 
 *From base64 string*
 
@@ -49,8 +49,8 @@ Saving Images
 Drawing on Images
 ------------------
 
-One of the most important reason to draw on images is to display the prediction 
-output visually.
+One of the most important reason to draw on images is to draw bounding boxes 
+representing the prediction output.
 
 *rectangles*
 
@@ -62,20 +62,20 @@ output visually.
                   color=(0,255,0), thickness=5)
 
 
-Here's an example function from xiaochus's YOLO on how it is used.
+Here's a typical example function from xiaochus's YOLO on how it is used.
 
 .. code:: python
 
     def draw(image, boxes, scores, classes, all_classes):
-        """Draw the boxes on the image.
+        '''Draw the boxes on the image.
 
-        # Argument:
+        Argument:
             image: original image.
             boxes: ndarray, boxes of objects.
             classes: ndarray, classes of objects.
             scores: ndarray, scores of objects.
             all_classes: all classes name.
-        """
+        '''
         for box, score, cl in zip(boxes, scores, classes):
             x, y, w, h = box
 
@@ -93,3 +93,30 @@ Here's an example function from xiaochus's YOLO on how it is used.
 
             print('class: {0}, score: {1:.2f}'.format(all_classes[cl], score))
             print('box coordinate x,y,w,h: {0}'.format(box))
+
+
+
+Wait & Break
+-------------
+
+This is not exactly pythonic, so it means it is not as easy to decipher.
+``0xFF`` is an 8 bit binary mask that forces the result from ``waitKey()`` 
+to be an integer of maximum 255,
+which is what a character in the keyboard can go till. 
+
+``ord(char)`` returns the character in integers which will also be of maximum 255.
+
+Hence by comparing the integer to the ord(char) value, 
+we can check for a key pressed event and break the loop.
+
+
+
+.. code:: python
+
+    # stop when character "q" is pressed
+    if cv2.waitKey(0) & 0xFF == ord('q'):
+        break
+
+    # stop when "ESC" key is pressed
+    if cv2.waitKey(20) & 0xFF == 27:
+        break

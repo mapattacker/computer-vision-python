@@ -11,7 +11,7 @@ deep learning. This documentation serves to compile knowledge
 acquired through various courses and online readings.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    basics
