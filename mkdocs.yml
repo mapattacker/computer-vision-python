@@ -8,6 +8,7 @@ nav:
     - Introduction: index.md
     - Image Basics: basics.md
     - Videos: videos.md
+    - CNN: cnn.md
     - Augmentation: augmentation.md
     - Transfer Learning: transfer_learning.md
     - Installation: install.md
