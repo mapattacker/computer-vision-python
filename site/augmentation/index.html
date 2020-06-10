@@ -15,7 +15,7 @@
     
     
       
-        <title>Videos - Python Computer Vision</title>
+        <title>Augmentation - Python Computer Vision</title>
       
     
     
@@ -57,7 +57,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#videos" class="md-skip">
+        <a href="#image-augmentation" class="md-skip">
           Skip to content
         </a>
       
@@ -85,7 +85,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Videos
+              Augmentation
             
           </span>
         </div>
@@ -207,6 +207,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../videos/" title="Videos" class="md-nav__link">
+      Videos
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -218,14 +230,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Videos
+        Augmentation
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
         </span>
       </label>
     
-    <a href="./" title="Videos" class="md-nav__link md-nav__link--active">
-      Videos
+    <a href="./" title="Augmentation" class="md-nav__link md-nav__link--active">
+      Augmentation
     </a>
     
       
@@ -244,15 +256,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#from-webcam" class="md-nav__link">
-    From Webcam
+  <a href="#flow-from-memory" class="md-nav__link">
+    Flow from Memory
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-file" class="md-nav__link">
-    From File
+  <a href="#flow-from-dataframe" class="md-nav__link">
+    Flow from Dataframe
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-from-directory" class="md-nav__link">
+    Flow from Directory
   </a>
   
 </li>
@@ -261,18 +280,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../augmentation/" title="Augmentation" class="md-nav__link">
-      Augmentation
-    </a>
   </li>
 
     
@@ -326,15 +333,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#from-webcam" class="md-nav__link">
-    From Webcam
+  <a href="#flow-from-memory" class="md-nav__link">
+    Flow from Memory
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-file" class="md-nav__link">
-    From File
+  <a href="#flow-from-dataframe" class="md-nav__link">
+    Flow from Dataframe
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-from-directory" class="md-nav__link">
+    Flow from Directory
   </a>
   
 </li>
@@ -351,7 +365,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mapattacker/computer-vision-python/edit/master/docs/videos.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mapattacker/computer-vision-python/edit/master/docs/augmentation.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -359,68 +373,75 @@
                   
                 
                 
-                <h1 id="videos">Videos</h1>
-<h2 id="from-webcam">From Webcam</h2>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+                <h1 id="image-augmentation">Image Augmentation</h1>
+<p>It is hard to obtain photogenic samples of every aspect. Image augmentation enables the auto-generation of new samples from existing ones through random adjustment from rotation, shifts, zoom, brightness etc. The below samples pertains to increasing samples when all samples in classes are balanced</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">keras_preprocessing.image</span> <span class="kn">import</span> <span class="n">ImageDataGenerator</span>
 
-<span class="c1"># Connects to your computer&#39;s default camera</span>
-<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">train_aug</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">rotation_range</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="c1"># Degree range for random rotations</span>
+                                <span class="n">width_shift_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="c1"># Range for random horizontal shifts</span>
+                                <span class="n">height_shift_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="c1"># Range for random vertical shifts</span>
+                                <span class="n">zoom_range</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="c1"># Range for random zoom</span>
+                                <span class="n">horizontal_flip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1"># Randomly flip inputs horizontally</span>
+                                <span class="n">vertical_flip</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1"># Randomly flip inputs vertically</span>
+                                <span class="n">brightness_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
 
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="c1"># Capture frame-by-frame</span>
-    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-    <span class="c1"># Our operations on the frame come here</span>
-    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span> <span class="n">gray</span><span class="p">)</span>
-
-    <span class="c1"># quit with &quot;q&quot;</span>
-    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
-        <span class="k">break</span>
-
-<span class="c1"># When everything done, release the capture and destroy the windows</span>
-<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+<span class="c1"># we should not augment validation and testing samples</span>
+<span class="n">val_aug</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">()</span>
+<span class="n">test_aug</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">()</span>
 </code></pre></div>
 
 
-<h2 id="from-file">From File</h2>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<p>After setting the augmentation settings, we will need to decide how to “flow” the data, original samples into the model. In this function, we can also resize the images automatically if necessary. Finally to fit the model, we use the <code>model.fit_generator</code> function so that for every epoch, the full original samples will be augmented randomly on the fly. They will not be stored in memory for obvious reasons.</p>
+<p>Essentially, there are 3 ways to do this. </p>
+<h2 id="flow-from-memory">Flow from Memory</h2>
+<p>First, we can flow the images from memory, i.e., <code>flow</code>, which means we have to load the data in memory first.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">img_size</span> <span class="o">=</span> <span class="mi">100</span>
 
-<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;../DATA/video_capture.mp4&#39;</span><span class="p">)</span>
+<span class="n">train_flow</span> <span class="o">=</span> <span class="n">train_aug</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span>
+                            <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">),</span>
+                            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
 
-<span class="c1"># FRAMES PER SECOND</span>
-<span class="n">fps</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">val_flow</span> <span class="o">=</span> <span class="n">val_aug</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">Y_val</span><span class="p">,</span>
+                        <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">),</span>
+                        <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
 
-<span class="c1"># check for video file</span>
-<span class="k">if</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">()</span><span class="o">==</span> <span class="bp">False</span><span class="p">:</span> 
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error opening the video file&quot;</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">train_flow</span><span class="p">,</span>
+                    <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="n">val_flow</span><span class="p">,</span>
+                    <span class="n">use_multiprocessing</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                    <span class="n">workers</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
 
 
-<span class="c1"># While the video is opened</span>
-<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+<h2 id="flow-from-dataframe">Flow from Dataframe</h2>
+<p>Second, we can flow the images from a directory <code>flow_from_dataframe</code>, where all classes of images are in that single directory. This requires a dataframe which indicates which image correspond to which class.</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">dir</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;/kaggle/input/plant-pathology-2020-fgvc7/images&#39;</span>
+<span class="n">train_flow</span> <span class="o">=</span> <span class="n">train_aug</span><span class="o">.</span><span class="n">flow_from_dataframe</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span>
+                                            <span class="n">directory</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span>
+                                            <span class="n">x_col</span><span class="o">=</span><span class="s1">&#39;image_name&#39;</span><span class="p">,</span>
+                                            <span class="n">y_col</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;class1&#39;</span><span class="p">,</span><span class="s1">&#39;class2&#39;</span><span class="p">,</span><span class="s1">&#39;class3&#39;</span><span class="p">,</span><span class="s1">&#39;class4&#39;</span><span class="p">],</span>
+                                            <span class="n">class_mode</span><span class="o">=</span><span class="s1">&#39;categorical&#39;</span>
+                                            <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+</code></pre></div>
 
-    <span class="c1"># Read the video file</span>
-    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
-    <span class="c1"># If we got frames, show them.</span>
-    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+<h2 id="flow-from-directory">Flow from Directory</h2>
+<p>Third, we can flow the images from a main directory <code>flow_from_directory</code>, where all each class of images are in individual subdirectories.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># to include all subdirectories&#39; images, no need specific classes</span>
+<span class="n">train_flow</span> <span class="o">=</span> <span class="n">train_aug</span><span class="o">.</span><span class="n">flow_from_directory</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span>
+                                            <span class="n">class_mode</span><span class="o">=</span><span class="s1">&#39;categorical&#39;</span><span class="p">,</span>
+                                            <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">),</span>
+                                            <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 
-        <span class="c1"># Display the frame at same frame rate of recording</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">)</span>
-        <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span><span class="n">frame</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>            
-            <span class="k">break</span>
-
-    <span class="c1"># automatically break this whole loop if the video is over</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">break</span>
-
-<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-<span class="c1"># Closes all the frames</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+<span class="c1"># to include specific subdirectories&#39; images, put list of subdirectory names under classes</span>
+<span class="n">train_flow</span> <span class="o">=</span> <span class="n">train_aug</span><span class="o">.</span><span class="n">flow_from_directory</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span>
+                                            <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;subdir1&#39;</span><span class="p">,</span> <span class="s1">&#39;subdir2&#39;</span><span class="p">,</span> <span class="s1">&#39;subdir3&#39;</span><span class="p">],</span>
+                                            <span class="n">class_mode</span><span class="o">=</span><span class="s1">&#39;categorical&#39;</span><span class="p">,</span>
+                                            <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span><span class="n">img_size</span><span class="p">),</span>
+                                            <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 </code></pre></div>
                 
               
@@ -440,7 +461,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../basics/" title="Image Basics" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../videos/" title="Videos" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -449,19 +470,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Image Basics
+                Videos
               </div>
             </div>
           </a>
         
         
-          <a href="../augmentation/" title="Augmentation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../transfer_learning/" title="Transfer Learning" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Augmentation
+                Transfer Learning
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
