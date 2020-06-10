@@ -372,10 +372,12 @@
                 
                 
                 <h1 id="transfer-learning">Transfer Learning</h1>
-<p>For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones. The latest one is EfficientNet by Google which can achieve higher accuracy with fewer parameters.</p>
+<p>For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones, with pretrained weights.</p>
 <p>For transfer learning for image recognition, the defacto is imagenet, whereby we can specify it under the weights argument.</p>
 <h2 id="efficientnet">EfficientNet</h2>
-<p><img alt="" src="../images/transfer_efficientnet.png?raw=true" /></p>
+<p><img alt="EfficientNet" src="https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html" /> is developed by Google in 2019. It is able to achieve a high accuracy with less parameters
+through a novel compound scaling method.</p>
+<p><img alt="" src="https://github.com/mapattacker/computer-vision-python/blob/master/images/transfer_efficientnet.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">efficientnet.tfkeras</span> <span class="kn">as</span> <span class="nn">efn</span>
 
 <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
