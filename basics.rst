@@ -106,7 +106,7 @@ which is what a character in the keyboard can go till.
 
 ``ord(char)`` returns the character in integers which will also be of maximum 255.
 
-Hence by comparing the integer to the ord(char) value, 
+Hence by comparing the integer to the ``ord(char)`` value, 
 we can check for a key pressed event and break the loop.
 
 

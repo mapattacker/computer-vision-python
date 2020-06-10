@@ -15,4 +15,5 @@ acquired through various courses and online readings.
    :caption: Contents:
 
    basics
+   videos
    install
