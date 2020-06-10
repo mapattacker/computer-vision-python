@@ -1,9 +1,14 @@
-Transfer Learning
-=================
+# Transfer Learning
 
 For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones. The latest one is EfficientNet by Google which can achieve higher accuracy with fewer parameters.
 
 For transfer learning for image recognition, the defacto is imagenet, whereby we can specify it under the weights argument.
+
+
+## EfficientNet
+
+
+![](../images/transfer_efficientnet.png?raw=true)
 
 
 ```python
@@ -37,3 +42,7 @@ def model(input_shape, classes):
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 ```
+
+## YOLO
+
+YOLO stands for You Only Look Once. 

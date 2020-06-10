@@ -2,7 +2,7 @@
 
 ## Convert to Array
 
-*Using Numpy*
+*Using Numpy (1)*
 
 ```python
 import numpy as np
@@ -10,6 +10,16 @@ import matplotlib.pyplot as plt
 
 imgArr = np.asarray('imagepath')
 plt.imshow(pic_arr)
+```
+
+*Using Numpy (2)*
+
+Sometimes, a Type error will be prompted using `cv2.rectangle()` when the input array is the 
+usual numpy array. We should use the following instead.
+
+```python
+import numpy as np
+imgArr = np.ascontiguousarray('imagepath')
 ```
 
 *Using OpenCV*
