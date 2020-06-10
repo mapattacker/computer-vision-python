@@ -366,75 +366,81 @@
                 <h1 id="basics-of-images">Basics of Images</h1>
 <h2 id="convert-to-array">Convert to Array</h2>
 <p><em>Using Numpy</em></p>
-<pre><code>import numpy as np
-import matplotlib.pyplot as plt
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
-imgArr = np.asarray('imagepath')
-plt.imshow(pic_arr)
-</code></pre>
+<span class="n">imgArr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="s1">&#39;imagepath&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pic_arr</span><span class="p">)</span>
+</code></pre></div>
+
 
 <p><em>Using OpenCV</em></p>
-<pre><code class="python">import cv2
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
 
-imgArr = cv2.imread('imagepath')
-cv2.imshow('image',img)
+<span class="n">imgArr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;imagepath&#39;</span><span class="p">)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
 
-# Wait for something on keyboard to be pressed to close window.
-# 0 refers to 0 miliseconds of waiting
-cv2.waitKey(0)
-</code></pre>
+<span class="c1"># Wait for something on keyboard to be pressed to close window.</span>
+<span class="c1"># 0 refers to 0 miliseconds of waiting</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
 
 <p><em>From base64 string</em></p>
-<pre><code class="python">import base64
-import cv2
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
 
-npArr = np.fromstring(base64.b64decode(encodedImage), np.uint8)
-imgArr = cv2.imdecode(npArr, cv2.IMREAD_ANYCOLOR)
-</code></pre>
+<span class="n">npArr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">encodedImage</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">imgArr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imdecode</span><span class="p">(</span><span class="n">npArr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_ANYCOLOR</span><span class="p">)</span>
+</code></pre></div>
+
 
 <h2 id="saving-images">Saving Images</h2>
-<pre><code class="python">cv2.imwrite('my_new_picture.jpg', imgArr)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;my_new_picture.jpg&#39;</span><span class="p">,</span> <span class="n">imgArr</span><span class="p">)</span>
+</code></pre></div>
+
 
 <h2 id="drawing-on-images">Drawing on Images</h2>
 <p>One of the most important reason to draw on images is to draw bounding boxes 
 representing the prediction output.</p>
 <p><em>rectangles</em></p>
-<pre><code class="python"># pt1 = top left
-# pt2 = bottom right
-cv2.rectangle(imgArr, pt1=(384,0), pt2=(510,128), \
-                color=(0,255,0), thickness=5)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1"># pt1 = top left</span>
+<span class="c1"># pt2 = bottom right</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">imgArr</span><span class="p">,</span> <span class="n">pt1</span><span class="o">=</span><span class="p">(</span><span class="mi">384</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">pt2</span><span class="o">=</span><span class="p">(</span><span class="mi">510</span><span class="p">,</span><span class="mi">128</span><span class="p">),</span> \
+                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+
 
 <p>Here's a typical example function from xiaochus's YOLO on how it is used.</p>
-<pre><code class="python">def draw(image, boxes, scores, classes, all_classes):
-    '''Draw the boxes on the image.
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">all_classes</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Draw the boxes on the image.</span>
 
-    Argument:
-        image: original image.
-        boxes: ndarray, boxes of objects.
-        classes: ndarray, classes of objects.
-        scores: ndarray, scores of objects.
-        all_classes: all classes name.
-    '''
-    for box, score, cl in zip(boxes, scores, classes):
-        x, y, w, h = box
+<span class="sd">    Argument:</span>
+<span class="sd">        image: original image.</span>
+<span class="sd">        boxes: ndarray, boxes of objects.</span>
+<span class="sd">        classes: ndarray, classes of objects.</span>
+<span class="sd">        scores: ndarray, scores of objects.</span>
+<span class="sd">        all_classes: all classes name.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">box</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">box</span>
 
-        top = max(0, np.floor(x + 0.5).astype(int))
-        left = max(0, np.floor(y + 0.5).astype(int))
-        right = min(image.shape[1], np.floor(x + w + 0.5).astype(int))
-        bottom = min(image.shape[0], np.floor(y + h + 0.5).astype(int))
+        <span class="n">top</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
 
-        cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
-        cv2.putText(image, '{0} {1:.2f}'.format(all_classes[cl], score),
-                    (top, left - 6),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.6, (0, 0, 255), 1,
-                    cv2.LINE_AA)
+        <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">left</span><span class="p">),</span> <span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">bottom</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="s1">&#39;{0} {1:.2f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">all_classes</span><span class="p">[</span><span class="n">cl</span><span class="p">],</span> <span class="n">score</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">6</span><span class="p">),</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span>
+                    <span class="mf">0.6</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">LINE_AA</span><span class="p">)</span>
 
-        print('class: {0}, score: {1:.2f}'.format(all_classes[cl], score))
-        print('box coordinate x,y,w,h: {0}'.format(box))
-</code></pre>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;class: {0}, score: {1:.2f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">all_classes</span><span class="p">[</span><span class="n">cl</span><span class="p">],</span> <span class="n">score</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;box coordinate x,y,w,h: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">box</span><span class="p">))</span>
+</code></pre></div>
+
 
 <h2 id="wait-break">Wait &amp; Break</h2>
 <p>This is not exactly pythonic, so it means it is not as easy to decipher.
@@ -444,19 +450,19 @@ which is what a character in the keyboard can go till. </p>
 <p><code>ord(char)</code> returns the character in integers which will also be of maximum 255.</p>
 <p>Hence by comparing the integer to the <code>ord(char)</code> value, 
 we can check for a key pressed event and break the loop.</p>
-<pre><code class="python"># stop when character &quot;q&quot; is pressed
-if cv2.waitKey(0) &amp; 0xFF == ord('q'):
-    break
+<div class="codehilite"><pre><span></span><code><span class="c1"># stop when character &quot;q&quot; is pressed</span>
+<span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+    <span class="k">break</span>
 
-# stop when &quot;ESC&quot; key is pressed
-if cv2.waitKey(20) &amp; 0xFF == 27:
-    break
+<span class="c1"># stop when &quot;ESC&quot; key is pressed</span>
+<span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="mi">27</span><span class="p">:</span>
+    <span class="k">break</span>
 
 
-# Once script is done, its usually good practice to call this line
-# It closes all windows (just in case you have multiple windows called)
-cv2.destroyAllWindows()
-</code></pre>
+<span class="c1"># Once script is done, its usually good practice to call this line</span>
+<span class="c1"># It closes all windows (just in case you have multiple windows called)</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
                 
               
               
