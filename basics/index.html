@@ -366,34 +366,34 @@
                 <h1 id="basics-of-images">Basics of Images</h1>
 <h2 id="convert-to-array">Convert to Array</h2>
 <p><em>Using Numpy</em></p>
-<pre><code class="python">    import numpy as np
-    import matplotlib.pyplot as plt
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
 
-    imgArr = np.asarray('imagepath')
-    plt.imshow(pic_arr)
+imgArr = np.asarray('imagepath')
+plt.imshow(pic_arr)
 </code></pre>
 
 <p><em>Using OpenCV</em></p>
-<pre><code class="python">    import cv2
+<pre><code class="python">import cv2
 
-    imgArr = cv2.imread('imagepath')
-    cv2.imshow('image',img)
+imgArr = cv2.imread('imagepath')
+cv2.imshow('image',img)
 
-    # Wait for something on keyboard to be pressed to close window.
-    # 0 refers to 0 miliseconds of waiting
-    cv2.waitKey(0)
+# Wait for something on keyboard to be pressed to close window.
+# 0 refers to 0 miliseconds of waiting
+cv2.waitKey(0)
 </code></pre>
 
 <p><em>From base64 string</em></p>
-<pre><code class="python">    import base64
-    import cv2
+<pre><code class="python">import base64
+import cv2
 
-    npArr = np.fromstring(base64.b64decode(encodedImage), np.uint8)
-    imgArr = cv2.imdecode(npArr, cv2.IMREAD_ANYCOLOR)
+npArr = np.fromstring(base64.b64decode(encodedImage), np.uint8)
+imgArr = cv2.imdecode(npArr, cv2.IMREAD_ANYCOLOR)
 </code></pre>
 
 <h2 id="saving-images">Saving Images</h2>
-<pre><code class="python">    cv2.imwrite('my_new_picture.jpg', imgArr)
+<pre><code class="python">cv2.imwrite('my_new_picture.jpg', imgArr)
 </code></pre>
 
 <h2 id="drawing-on-images">Drawing on Images</h2>
@@ -407,33 +407,33 @@ cv2.rectangle(imgArr, pt1=(384,0), pt2=(510,128), \
 </code></pre>
 
 <p>Here's a typical example function from xiaochus's YOLO on how it is used.</p>
-<pre><code class="python">    def draw(image, boxes, scores, classes, all_classes):
-        '''Draw the boxes on the image.
+<pre><code class="python">def draw(image, boxes, scores, classes, all_classes):
+    '''Draw the boxes on the image.
 
-        Argument:
-            image: original image.
-            boxes: ndarray, boxes of objects.
-            classes: ndarray, classes of objects.
-            scores: ndarray, scores of objects.
-            all_classes: all classes name.
-        '''
-        for box, score, cl in zip(boxes, scores, classes):
-            x, y, w, h = box
+    Argument:
+        image: original image.
+        boxes: ndarray, boxes of objects.
+        classes: ndarray, classes of objects.
+        scores: ndarray, scores of objects.
+        all_classes: all classes name.
+    '''
+    for box, score, cl in zip(boxes, scores, classes):
+        x, y, w, h = box
 
-            top = max(0, np.floor(x + 0.5).astype(int))
-            left = max(0, np.floor(y + 0.5).astype(int))
-            right = min(image.shape[1], np.floor(x + w + 0.5).astype(int))
-            bottom = min(image.shape[0], np.floor(y + h + 0.5).astype(int))
+        top = max(0, np.floor(x + 0.5).astype(int))
+        left = max(0, np.floor(y + 0.5).astype(int))
+        right = min(image.shape[1], np.floor(x + w + 0.5).astype(int))
+        bottom = min(image.shape[0], np.floor(y + h + 0.5).astype(int))
 
-            cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
-            cv2.putText(image, '{0} {1:.2f}'.format(all_classes[cl], score),
-                        (top, left - 6),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.6, (0, 0, 255), 1,
-                        cv2.LINE_AA)
+        cv2.rectangle(image, (top, left), (right, bottom), (255, 0, 0), 2)
+        cv2.putText(image, '{0} {1:.2f}'.format(all_classes[cl], score),
+                    (top, left - 6),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.6, (0, 0, 255), 1,
+                    cv2.LINE_AA)
 
-            print('class: {0}, score: {1:.2f}'.format(all_classes[cl], score))
-            print('box coordinate x,y,w,h: {0}'.format(box))
+        print('class: {0}, score: {1:.2f}'.format(all_classes[cl], score))
+        print('box coordinate x,y,w,h: {0}'.format(box))
 </code></pre>
 
 <h2 id="wait-break">Wait &amp; Break</h2>
@@ -444,18 +444,18 @@ which is what a character in the keyboard can go till. </p>
 <p><code>ord(char)</code> returns the character in integers which will also be of maximum 255.</p>
 <p>Hence by comparing the integer to the <code>ord(char)</code> value, 
 we can check for a key pressed event and break the loop.</p>
-<pre><code class="python">    # stop when character &quot;q&quot; is pressed
-    if cv2.waitKey(0) &amp; 0xFF == ord('q'):
-        break
+<pre><code class="python"># stop when character &quot;q&quot; is pressed
+if cv2.waitKey(0) &amp; 0xFF == ord('q'):
+    break
 
-    # stop when &quot;ESC&quot; key is pressed
-    if cv2.waitKey(20) &amp; 0xFF == 27:
-        break
+# stop when &quot;ESC&quot; key is pressed
+if cv2.waitKey(20) &amp; 0xFF == 27:
+    break
 
 
-    # Once script is done, its usually good practice to call this line
-    # It closes all windows (just in case you have multiple windows called)
-    cv2.destroyAllWindows()
+# Once script is done, its usually good practice to call this line
+# It closes all windows (just in case you have multiple windows called)
+cv2.destroyAllWindows()
 </code></pre>
                 
               
