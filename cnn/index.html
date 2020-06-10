@@ -15,7 +15,7 @@
     
     
       
-        <title>Transfer Learning - Python Computer Vision</title>
+        <title>CNN - Python Computer Vision</title>
       
     
     
@@ -57,7 +57,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#transfer-learning" class="md-skip">
+        <a href="#convolutional-neural-networks" class="md-skip">
           Skip to content
         </a>
       
@@ -85,7 +85,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Transfer Learning
+              CNN
             
           </span>
         </div>
@@ -219,11 +219,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../cnn/" title="CNN" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="CNN" class="md-nav__link md-nav__link--active">
       CNN
     </a>
+    
   </li>
 
     
@@ -243,20 +252,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="Transfer Learning" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../transfer_learning/" title="Transfer Learning" class="md-nav__link">
       Transfer Learning
     </a>
-    
   </li>
 
     
@@ -299,7 +299,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mapattacker/computer-vision-python/edit/master/docs/transfer_learning.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mapattacker/computer-vision-python/edit/master/docs/cnn.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -307,39 +307,7 @@
                   
                 
                 
-                <h1 id="transfer-learning">Transfer Learning</h1>
-<p>For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones. The latest one is EfficientNet by Google which can achieve higher accuracy with fewer parameters.</p>
-<p>For transfer learning for image recognition, the defacto is imagenet, whereby we can specify it under the weights argument.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">efficientnet.tfkeras</span> <span class="kn">as</span> <span class="nn">efn</span>
-
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    transfer learning from imagenet&#39;s weights, using Google&#39;s efficientnet7 architecture</span>
-<span class="sd">    top layer (include_top) is removed as the number of classes is changed</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">base</span> <span class="o">=</span> <span class="n">efn</span><span class="o">.</span><span class="n">EfficientNetB7</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GlobalAveragePooling2D</span><span class="p">())</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">model</span>
-
-
-<span class="c1"># alternatively...</span>
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">efn</span><span class="o">.</span><span class="n">EfficientNetB3</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">output</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-
-    <span class="n">output_layer</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">output_layer</span><span class="p">)</span>
-
-    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">model</span>
-</code></pre></div>
+                <h1 id="convolutional-neural-networks">Convolutional Neural Networks</h1>
                 
               
               
@@ -358,7 +326,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../augmentation/" title="Augmentation" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../videos/" title="Videos" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -367,19 +335,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Augmentation
+                Videos
               </div>
             </div>
           </a>
         
         
-          <a href="../install/" title="Installation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../augmentation/" title="Augmentation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Installation
+                Augmentation
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
