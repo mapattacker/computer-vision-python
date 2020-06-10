@@ -1,0 +1,11 @@
+site_name: Python Computer Vision
+theme:
+    name: 'material'
+    palette:
+        primary: 'black'
+
+nav:
+    - Introduction: index.md
+    - Images Basic: basics.md
+    - Installation: install.md
+

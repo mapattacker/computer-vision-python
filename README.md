@@ -1,4 +1,4 @@
-# py-computer-vision
+# Computer Vision in Python
 Notes on python computer vision
 
-https://computer-vision-python.readthedocs.io/en/latest/
+https://mapattacker.github.io/computer-vision-python/
