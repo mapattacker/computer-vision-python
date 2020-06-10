@@ -6,6 +6,8 @@ theme:
 
 nav:
     - Introduction: index.md
+    - Image Basics: basics.md
+    - Videos: videos.md
     - Installation: install.md
 
 repo_name: mapattacker/computer-vision-python

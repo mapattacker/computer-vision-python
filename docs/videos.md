@@ -1,12 +1,9 @@
-Videos
-======
+# Videos
 
 
-From Webcam
-------------
+## From Webcam
 
-.. code:: python
-
+```python
     import cv2
 
     # Connects to your computer's default camera
@@ -27,13 +24,11 @@ From Webcam
     # When everything done, release the capture and destroy the windows
     cap.release()
     cv2.destroyAllWindows()
+```
 
+## From File
 
-From File
-------------
-
-.. code:: python
-
+```python
     import cv2
     import time
 
@@ -70,3 +65,4 @@ From File
     cap.release()
     # Closes all the frames
     cv2.destroyAllWindows()
+```
