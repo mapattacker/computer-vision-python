@@ -120,3 +120,8 @@ we can check for a key pressed event and break the loop.
     # stop when "ESC" key is pressed
     if cv2.waitKey(20) & 0xFF == 27:
         break
+
+
+    # Once script is done, its usually good practice to call this line
+    # It closes all windows (just in case you have multiple windows called)
+    cv2.destroyAllWindows()
