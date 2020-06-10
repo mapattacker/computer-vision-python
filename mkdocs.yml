@@ -6,5 +6,6 @@ theme:
 
 nav:
     - Introduction: index.md
+    - Images Basic: basics.md
     - Installation: install.md
 
