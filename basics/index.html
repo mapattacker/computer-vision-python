@@ -246,8 +246,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#resizing-images" class="md-nav__link">
-    Resizing Images
+  <a href="#resizing-imagesw" class="md-nav__link">
+    Resizing Imagesw
   </a>
   
 </li>
@@ -385,8 +385,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#resizing-images" class="md-nav__link">
-    Resizing Images
+  <a href="#resizing-imagesw" class="md-nav__link">
+    Resizing Imagesw
   </a>
   
 </li>
@@ -470,7 +470,7 @@ usual numpy array. We should use the following instead.</p>
 </code></pre></div>
 
 
-<h2 id="resizing-images">Resizing Images</h2>
+<h2 id="resizing-imagesw">Resizing Imagesw</h2>
 <p>Resizing by a specific scale</p>
 <div class="codehilite"><pre><span></span><code><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;imagepath&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
 
@@ -489,12 +489,11 @@ usual numpy array. We should use the following instead.</p>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    frame (array): image array</span>
-<span class="sd">    new_height (int): </span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    new_width: size of new width</span>
-<span class="sd">    new_height: size of new height</span>
+<span class="sd">    new_width (int): size of new width</span>
+<span class="sd">    new_height (int): size of new height</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">height</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
