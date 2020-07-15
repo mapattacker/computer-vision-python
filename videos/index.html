@@ -248,24 +248,18 @@
     From Webcam
   </a>
   
-    <nav class="md-nav" aria-label="From Webcam">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#get-latest-frames" class="md-nav__link">
-    Get Latest Frames
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#from-file" class="md-nav__link">
     From File
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-latest-frames" class="md-nav__link">
+    Get Latest Frames
   </a>
   
 </li>
@@ -367,24 +361,18 @@
     From Webcam
   </a>
   
-    <nav class="md-nav" aria-label="From Webcam">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#get-latest-frames" class="md-nav__link">
-    Get Latest Frames
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
   <a href="#from-file" class="md-nav__link">
     From File
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-latest-frames" class="md-nav__link">
+    Get Latest Frames
   </a>
   
 </li>
@@ -434,7 +422,47 @@
 </code></pre></div>
 
 
-<h3 id="get-latest-frames">Get Latest Frames</h3>
+<h2 id="from-file">From File</h2>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;../DATA/video_capture.mp4&#39;</span><span class="p">)</span>
+
+<span class="c1"># FRAMES PER SECOND</span>
+<span class="n">fps</span> <span class="o">=</span> <span class="mi">25</span>
+
+<span class="c1"># check for video file</span>
+<span class="k">if</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">()</span><span class="o">==</span> <span class="bp">False</span><span class="p">:</span> 
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error opening the video file&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># While the video is opened</span>
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+
+    <span class="c1"># Read the video file</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># If we got frames, show them.</span>
+    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+
+        <span class="c1"># Display the frame at same frame rate of recording</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span><span class="n">frame</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>            
+            <span class="k">break</span>
+
+    <span class="c1"># automatically break this whole loop if the video is over</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="c1"># Closes all the frames</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+
+<h2 id="get-latest-frames">Get Latest Frames</h2>
 <p>OpenCV's videocapture's read() only reads the frames sequentially. 
 However, we might want to acquire the latest frame after processing the previous one,
 else the latency will quickly build up overtime.</p>
@@ -487,46 +515,6 @@ https://stackoverflow.com/questions/51722319/skip-frames-and-seek-to-end-of-rtsp
 
     <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>            
         <span class="k">break</span>
-</code></pre></div>
-
-
-<h2 id="from-file">From File</h2>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;../DATA/video_capture.mp4&#39;</span><span class="p">)</span>
-
-<span class="c1"># FRAMES PER SECOND</span>
-<span class="n">fps</span> <span class="o">=</span> <span class="mi">25</span>
-
-<span class="c1"># check for video file</span>
-<span class="k">if</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">()</span><span class="o">==</span> <span class="bp">False</span><span class="p">:</span> 
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error opening the video file&quot;</span><span class="p">)</span>
-
-
-<span class="c1"># While the video is opened</span>
-<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
-
-    <span class="c1"># Read the video file</span>
-    <span class="n">ret</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-    <span class="c1"># If we got frames, show them.</span>
-    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
-
-        <span class="c1"># Display the frame at same frame rate of recording</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">fps</span><span class="p">)</span>
-        <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span><span class="n">frame</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>            
-            <span class="k">break</span>
-
-    <span class="c1"># automatically break this whole loop if the video is over</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">break</span>
-
-<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-<span class="c1"># Closes all the frames</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
 </code></pre></div>
                 
               
