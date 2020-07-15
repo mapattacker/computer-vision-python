@@ -248,6 +248,19 @@
     From Webcam
   </a>
   
+    <nav class="md-nav" aria-label="From Webcam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-latest-frames" class="md-nav__link">
+    Get Latest Frames
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -354,6 +367,19 @@
     From Webcam
   </a>
   
+    <nav class="md-nav" aria-label="From Webcam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-latest-frames" class="md-nav__link">
+    Get Latest Frames
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -405,6 +431,61 @@
 <span class="c1"># When everything done, release the capture and destroy the windows</span>
 <span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+</code></pre></div>
+
+
+<h3 id="get-latest-frames">Get Latest Frames</h3>
+<p>OpenCV's videocapture's read() only reads the frames sequentially. 
+However, we might want to acquire the latest frame after processing the previous one,
+else the latency will quickly build up overtime.</p>
+<p>A helpful code snippet from stackoverflow can help to resolve this:
+https://stackoverflow.com/questions/51722319/skip-frames-and-seek-to-end-of-rtsp-stream-in-opencv</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">lock</span>
+
+<span class="k">class</span> <span class="nc">Camera</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Read the latest frame from RTSP video stream.</span>
+<span class="sd">    A daemon thread is produced that runs the stream in the background.</span>
+<span class="sd">    When required, getFrame() will grab the latest copy of the frame from the thread.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">last_frame</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">last_ready</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rtsp_link</span><span class="p">):</span>
+        <span class="n">capture</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">rtsp_link</span><span class="p">)</span>
+        <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rtsp_cam_buffer</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">capture</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rtsp_read_thread&quot;</span>
+        <span class="p">)</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">rtsp_cam_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_ready</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_frame</span> <span class="o">=</span> <span class="n">capture</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">getFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_ready</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_frame</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</code></pre></div>
+
+
+<p>This is how we call the class in.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;mask.mp4&#39;</span>
+<span class="n">capture</span> <span class="o">=</span> <span class="n">Camera</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">capture</span><span class="o">.</span><span class="n">getFrame</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;frame&#39;</span><span class="p">,</span><span class="n">frame</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;frame is None&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>            
+        <span class="k">break</span>
 </code></pre></div>
 
 
