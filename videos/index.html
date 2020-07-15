@@ -466,8 +466,7 @@
 <p>OpenCV's videocapture's read() only reads the frames sequentially. 
 However, we might want to acquire the latest frame after processing the previous one,
 else the latency will quickly build up overtime.</p>
-<p>A helpful code snippet from stackoverflow can help to resolve this:
-https://stackoverflow.com/questions/51722319/skip-frames-and-seek-to-end-of-rtsp-stream-in-opencv</p>
+<p>A helpful code snippet from <a href="https://stackoverflow.com/questions/51722319/skip-frames-and-seek-to-end-of-rtsp-stream-in-opencv">stackoverflow</a> can help to resolve this:</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">lock</span>
