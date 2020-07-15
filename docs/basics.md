@@ -51,6 +51,51 @@ imgArr = cv2.imdecode(npArr, cv2.IMREAD_ANYCOLOR)
 cv2.imwrite('my_new_picture.jpg', imgArr)
 ```
 
+
+## Resizing Imagesw
+
+Resizing by a specific scale
+
+```python
+img = cv2.imread('imagepath', cv2.IMREAD_UNCHANGED)
+ 
+scale = 0.6 # percent of original size
+width = int(img.shape[1] * scale)
+height = int(img.shape[0] * scale)
+resized = cv2.resize(img, (width, height), interpolation = cv2.INTER_AREA)
+```
+
+Resizing by specific height
+
+```python
+def img_scaling(frame, new_height=600):
+    '''
+    rescale image based on a fixed height, and width with same aspect ratio
+
+    Parameters
+    ----------
+    frame (array): image array
+
+    Returns
+    -------
+    new_width (int): size of new width
+    new_height (int): size of new height
+    '''
+    width = frame.shape[1]
+    height = frame.shape[0]
+    if height > new_height:
+        scale = new_height/height
+        new_width = int(width * scale)
+    else:
+        new_width = width
+        new_height = height
+    return new_width, new_height
+
+new_width, new_height = img_scaling(frame)
+resized = cv2.resize(img, (new_width, new_height), interpolation = cv2.INTER_AREA)
+```
+
+
 ## Drawing on Images
 
 One of the most important reason to draw on images is to draw bounding boxes 

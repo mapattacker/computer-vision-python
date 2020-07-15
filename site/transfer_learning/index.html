@@ -293,6 +293,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#efficientdet" class="md-nav__link">
+    EfficientDet
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automl" class="md-nav__link">
+    AutoML
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -308,6 +322,18 @@
   <li class="md-nav__item">
     <a href="../install/" title="Installation" class="md-nav__link">
       Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../datasets/" title="Datasets" class="md-nav__link">
+      Datasets
     </a>
   </li>
 
@@ -351,6 +377,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#efficientdet" class="md-nav__link">
+    EfficientDet
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automl" class="md-nav__link">
+    AutoML
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -372,10 +412,12 @@
                 
                 
                 <h1 id="transfer-learning">Transfer Learning</h1>
-<p>For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones. The latest one is EfficientNet by Google which can achieve higher accuracy with fewer parameters.</p>
+<p>For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones, with pretrained weights.</p>
 <p>For transfer learning for image recognition, the defacto is imagenet, whereby we can specify it under the weights argument.</p>
 <h2 id="efficientnet">EfficientNet</h2>
-<p><img alt="" src="../images/transfer_efficientnet.png?raw=true" /></p>
+<p><a href="https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html">EfficientNet</a> is developed by Google in 2019. It is able to achieve a high accuracy with less parameters
+through a novel compound scaling method [image (e)] versus traditional methods [images (b-d)].</p>
+<p><img alt="" src="https://github.com/mapattacker/computer-vision-python/raw/master/images/transfer_efficientnet.png" /></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">efficientnet.tfkeras</span> <span class="kn">as</span> <span class="nn">efn</span>
 
 <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">classes</span><span class="p">):</span>
@@ -409,7 +451,15 @@
 
 
 <h2 id="yolo">YOLO</h2>
-<p>YOLO stands for You Only Look Once. </p>
+<p>YOLO (You Only Look Once) is an object detection framework that works extremely fast
+compared to other existing frameworks.</p>
+<h2 id="efficientdet">EfficientDet</h2>
+<p><a href="https://ai.googleblog.com/2020/04/efficientdet-towards-scalable-and.html">EfficientDet</a> is also
+another architecture, with the backbone using EfficientNet, developed by Google in 2019.</p>
+<p>https://github.com/Star-Clouds/CenterFace</p>
+<h2 id="automl">AutoML</h2>
+<p>Google Neural Architecture Search</p>
+<p>Here's a nice instructional guide on <a href="https://cloud.google.com/vision/automl/docs/quickstarts">how to use</a></p>
                 
               
               

@@ -1,14 +1,16 @@
 # Transfer Learning
 
-For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones. The latest one is EfficientNet by Google which can achieve higher accuracy with fewer parameters.
+For CNN, because of the huge research done, and the complexity in architecture, we can use existing ones, with pretrained weights.
 
 For transfer learning for image recognition, the defacto is imagenet, whereby we can specify it under the weights argument.
 
 
 ## EfficientNet
 
+[EfficientNet](https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html) is developed by Google in 2019. It is able to achieve a high accuracy with less parameters
+through a novel compound scaling method [image (e)] versus traditional methods [images (b-d)].
 
-![](../images/transfer_efficientnet.png?raw=true)
+![](https://github.com/mapattacker/computer-vision-python/raw/master/images/transfer_efficientnet.png)
 
 
 ```python
@@ -45,4 +47,19 @@ def model(input_shape, classes):
 
 ## YOLO
 
-YOLO stands for You Only Look Once. 
+YOLO (You Only Look Once) is an object detection framework that works extremely fast
+compared to other existing frameworks.
+
+
+## EfficientDet
+
+[EfficientDet](https://ai.googleblog.com/2020/04/efficientdet-towards-scalable-and.html) is also
+another architecture, with the backbone using EfficientNet, developed by Google in 2019.
+
+https://github.com/Star-Clouds/CenterFace
+
+## AutoML
+
+Google Neural Architecture Search
+
+Here's a nice instructional guide on [how to use](https://cloud.google.com/vision/automl/docs/quickstarts)

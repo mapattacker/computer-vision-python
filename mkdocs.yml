@@ -12,9 +12,13 @@ nav:
     - Augmentation: augmentation.md
     - Transfer Learning: transfer_learning.md
     - Installation: install.md
+    - Datasets: datasets.md
 
+    
 repo_name: mapattacker/computer-vision-python
 repo_url: https://github.com/mapattacker/computer-vision-python
 
 markdown_extensions:
     - codehilite
+
+# mkdocs gh-deploy

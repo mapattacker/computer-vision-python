@@ -246,6 +246,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#resizing-imagesw" class="md-nav__link">
+    Resizing Imagesw
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#drawing-on-images" class="md-nav__link">
     Drawing on Images
   </a>
@@ -326,6 +333,18 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../datasets/" title="Datasets" class="md-nav__link">
+      Datasets
+    </a>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -361,6 +380,13 @@
         <li class="md-nav__item">
   <a href="#saving-images" class="md-nav__link">
     Saving Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resizing-imagesw" class="md-nav__link">
+    Resizing Imagesw
   </a>
   
 </li>
@@ -441,6 +467,46 @@ usual numpy array. We should use the following instead.</p>
 
 <h2 id="saving-images">Saving Images</h2>
 <div class="codehilite"><pre><span></span><code><span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s1">&#39;my_new_picture.jpg&#39;</span><span class="p">,</span> <span class="n">imgArr</span><span class="p">)</span>
+</code></pre></div>
+
+
+<h2 id="resizing-imagesw">Resizing Imagesw</h2>
+<p>Resizing by a specific scale</p>
+<div class="codehilite"><pre><span></span><code><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;imagepath&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span><span class="p">)</span>
+
+<span class="n">scale</span> <span class="o">=</span> <span class="mf">0.6</span> <span class="c1"># percent of original size</span>
+<span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+<span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+<span class="n">resized</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>Resizing by specific height</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">img_scaling</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">new_height</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    rescale image based on a fixed height, and width with same aspect ratio</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    frame (array): image array</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    new_width (int): size of new width</span>
+<span class="sd">    new_height (int): size of new height</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">height</span> <span class="o">&gt;</span> <span class="n">new_height</span><span class="p">:</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">new_height</span><span class="o">/</span><span class="n">height</span>
+        <span class="n">new_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="n">new_height</span> <span class="o">=</span> <span class="n">height</span>
+    <span class="k">return</span> <span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span>
+
+<span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span> <span class="o">=</span> <span class="n">img_scaling</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">resized</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">new_width</span><span class="p">,</span> <span class="n">new_height</span><span class="p">),</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
 </code></pre></div>
 
 
